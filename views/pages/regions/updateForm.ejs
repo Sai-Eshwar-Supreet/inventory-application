@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('../../partials/head') %>
+    <body>
+        <%- include('../../partials/header') %>
+        <%- include('../../partials/nav') %>
+        <%- include('../../partials/errors') %>
+        <h2>Update Region</h2>
+        <form action="/regions/<%= region.id %>/edit" method="POST">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" value="<%= region.name %>" required>
+            <button type="submit">Update Region</button>
+        </form>
+
+        <%- include('../../partials/footer') %>
+    </body>
+</html>

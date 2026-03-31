@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('../../partials/head') %>
+    <body>
+        <%- include('../../partials/header') %>
+        <%- include('../../partials/nav') %>
+
+        <h2>Regions</h2>
+        <a href="/regions/new">Add New Region</a>
+        <ul>
+            <% regions.forEach(region => { %>
+                <li>
+                    <span><%= region.name %></span>
+                    <a href="/regions/<%= region.id %>/edit">Edit</a>
+                    <form action="/regions/<%= region.id %>/delete" method="POST">
+                        <button type="submit">Delete</button>
+                    </form>
+                </li>
+            <% }) %>
+        </ul>
+
+        <%- include('../../partials/footer') %>
+    </body>
+</html>
