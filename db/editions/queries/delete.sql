@@ -1,0 +1,1 @@
+DELETE FROM editions WHERE id = $1;

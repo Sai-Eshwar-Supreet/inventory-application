@@ -1,0 +1,1 @@
+SELECT * FROM editions WHERE id = $1;

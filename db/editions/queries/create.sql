@@ -1,0 +1,1 @@
+INSERT INTO editions (name) VALUES ($1);

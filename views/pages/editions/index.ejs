@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('../../partials/head') %>
+    <body>
+        <%- include('../../partials/header') %>
+        <%- include('../../partials/nav') %>
+
+        <h2>Editions</h2>
+        <a href="/editions/new">Add New Edition</a>
+        <ul>
+            <% editions.forEach(edition => { %>
+                <li>
+                    <span><%= edition.name %></span>
+                    <a href="/editions/<%= edition.id %>/edit">Edit</a>
+                    <form action="/editions/<%= edition.id %>/delete" method="POST">
+                        <button type="submit">Delete</button>
+                    </form>
+                </li>
+            <% }) %>
+        </ul>
+
+        <%- include('../../partials/footer') %>
+    </body>
+</html>
