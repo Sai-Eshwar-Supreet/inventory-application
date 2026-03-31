@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('../../partials/head') %>
+    <body>
+        <%- include('../../partials/header') %>
+        <%- include('../../partials/nav') %>
+
+        <h2>Developers</h2>
+        <a href="/developers/new">Add New Developer</a>
+        <ul>
+            <% developers.forEach(developer => { %>
+                <li>
+                    <span><%= developer.name %></span>
+                    <a href="/developers/<%= developer.id %>/edit">Edit</a>
+                    <form action="/developers/<%= developer.id %>/delete" method="POST">
+                        <button type="submit">Delete</button>
+                    </form>
+                </li>
+            <% }) %>
+        </ul>
+
+        <%- include('../../partials/footer') %>
+    </body>
+</html>

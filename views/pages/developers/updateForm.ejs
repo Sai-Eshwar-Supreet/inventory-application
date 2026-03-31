@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('../../partials/head') %>
+    <body>
+        <%- include('../../partials/header') %>
+        <%- include('../../partials/nav') %>
+        <%- include('../../partials/errors') %>
+        <h2>Update Developer</h2>
+        <form action="/developers/<%= developer.id %>/edit" method="POST">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" value="<%= developer.name %>" required>
+            <button type="submit">Update Developer</button>
+        </form>
+
+        <%- include('../../partials/footer') %>
+    </body>
+</html>

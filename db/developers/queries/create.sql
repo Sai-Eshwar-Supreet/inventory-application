@@ -1,0 +1,1 @@
+INSERT INTO developers (name) VALUES ($1);
