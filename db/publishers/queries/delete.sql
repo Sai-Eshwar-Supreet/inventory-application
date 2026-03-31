@@ -1,0 +1,1 @@
+DELETE FROM publishers WHERE id = $1;

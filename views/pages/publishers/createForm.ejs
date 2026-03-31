@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('../../partials/head') %>
+    <body>
+        <%- include('../../partials/header') %>
+        <%- include('../../partials/nav') %>
+        <%- include('../../partials/errors') %>
+        <h2>Create Publisher</h2>
+        <form action="/publishers/new" method="POST">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+            <button type="submit">Create Publisher</button>
+        </form>
+
+        <%- include('../../partials/footer') %>
+    </body>
+</html>

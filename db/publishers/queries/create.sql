@@ -1,0 +1,1 @@
+INSERT INTO publishers (name) VALUES ($1);

@@ -14,6 +14,7 @@ app.use(express.urlencoded({extended: true}));
 app.use("/", require('./routes/indexRouter.cjs'));
 app.use("/platforms", require('./routes/platformsRouter.cjs'));
 app.use("/editions", require('./routes/editionsRouter.cjs'));
+app.use("/publishers", require('./routes/publishersRouter.cjs'));
 
 app.use((req, res) => {
     res.status(404).render('errorPage', {errMessage: 'Path does not exist'});
