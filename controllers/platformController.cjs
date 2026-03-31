@@ -1,5 +1,5 @@
 
-const platformDB = require('../db/platforms/platformQueries.cjs');
+const platformDB = require('../db/platforms/repository.cjs');
 
 async function getAllPlatforms(req, res) {
     const platforms = await platformDB.getAllPlatforms();
