@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('../../partials/head') %>
+    <body>
+        <%- include('../../partials/header') %>
+        <%- include('../../partials/nav') %>
+
+        <h2>Customers</h2>
+        <a href="/customers/new">Add New Customer</a>
+        <ul>
+            <% customers.forEach(customer => { %>
+                <li>
+                    <span><%= customer.name %></span>
+                    <a href="/customers/<%= customer.id %>/edit">Edit</a>
+                    <form action="/customers/<%= customer.id %>/delete" method="POST">
+                        <button type="submit">Delete</button>
+                    </form>
+                </li>
+            <% }) %>
+        </ul>
+
+        <%- include('../../partials/footer') %>
+    </body>
+</html>
