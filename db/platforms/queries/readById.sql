@@ -1,0 +1,1 @@
+SELECT * FROM platforms WHERE id = $1;

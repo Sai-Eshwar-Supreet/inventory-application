@@ -1,6 +1,5 @@
 const express = require('express');
 const path = require('path');
-const indexRouter = require('./routes/indexRouter.cjs');
 
 const app = express();
 
@@ -12,7 +11,8 @@ app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({extended: true}));
 
-app.use("/", indexRouter);
+app.use("/", require('./routes/indexRouter.cjs'));
+app.use("/platforms", require('./routes/platformsRouter.cjs'));
 
 app.use((req, res) => {
     res.status(404).render('errorPage', {errMessage: 'Path does not exist'});

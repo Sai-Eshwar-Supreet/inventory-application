@@ -1,0 +1,1 @@
+INSERT INTO platforms (name) VALUES ($1);
