@@ -20,7 +20,6 @@ async function getCreateForm(req, res) {
 }
 
 async function getGameDetails(req, res) {
-    console.log('I am being called');
     const errors = validationResult(req);
     if(!errors.isEmpty()){
         return res.sendStatus(400);
@@ -29,8 +28,6 @@ async function getGameDetails(req, res) {
     const {id} = matchedData(req);
 
     const game = await gameDB.getGameById(id);
-
-    console.log(game);
 
     res.render('pages/games/details', {game});
 }
@@ -80,8 +77,6 @@ async function postUpdateGame(req, res) {
 }
 
 function normalizeGenreIds(req, res, next) {
-    console.log(req)
-
     if(req.body.genres && !Array.isArray(req.body.genres)){
         req.body.genres = [req.body.genres];
     }
