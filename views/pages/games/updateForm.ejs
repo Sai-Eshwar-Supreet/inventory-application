@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('../../partials/head') %>
+    <body>
+        <%- include('../../partials/header') %>
+        <%- include('../../partials/nav') %>
+        <%- include('../../partials/errors') %>
+        <h2>Update Game</h2>
+        <form action="/games/<%= game.id %>/edit" method="POST">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" value="<%= game.name %>" required>
+            <label for="description">Description:</label>
+            <input type="text" id="description" name="description" value="<%= game.description %>" required>
+
+            <div>
+                <% genres.forEach(genre => { %>
+                    <label>
+                        <% console.log("game: "); console.log(game) %>
+                        <input type="checkbox" name="genres" value="<%= genre.id %>" <%= game.genres?.some(g => g.id === genre.id) ? 'checked' : '' %>>
+                        <%= genre.name %>
+                    </label>
+                <% }) %>
+            </div>
+            
+            <button type="submit">Update Game</button>
+        </form>
+
+        <%- include('../../partials/footer') %>
+    </body>
+</html>

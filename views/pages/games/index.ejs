@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('../../partials/head') %>
+    <body>
+        <%- include('../../partials/header') %>
+        <%- include('../../partials/nav') %>
+
+        <h2>Games</h2>
+        <a href="/games/new">Add New Game</a>
+        <ul>
+            <% games.forEach(game => { %>
+                <li>
+                    <a href="/games/<%= game.id %>/details"><%= game.name %></a>
+                    <a href="/games/<%= game.id %>/edit">Edit</a>
+                    <form action="/games/<%= game.id %>/delete" method="POST">
+                        <button type="submit">Delete</button>
+                    </form>
+                </li>
+            <% }) %>
+        </ul>
+
+        <%- include('../../partials/footer') %>
+    </body>
+</html>

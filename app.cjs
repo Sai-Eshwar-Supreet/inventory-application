@@ -19,6 +19,7 @@ app.use("/regions", require('./routes/regionsRouter.cjs'));
 app.use("/developers", require('./routes/developersRouter.cjs'));
 app.use("/genres", require('./routes/genresRouter.cjs'));
 app.use("/customers", require('./routes/customersRouter.cjs'));
+app.use("/games", require('./routes/gamesRouter.cjs'));
 
 app.use((req, res) => {
     res.status(404).render('errorPage', {errMessage: 'Path does not exist'});
