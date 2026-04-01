@@ -13,9 +13,14 @@ const genreIdsValidator = [
     body('genres.*').isInt().withMessage('Genre IDs must be integers')
 ];
 
+const developersIdsValidator = [
+    body('developers').isArray({ min: 1 }).withMessage('At least one developer must be selected'),
+    body('developers.*').isInt().withMessage('Developer IDs must be integers')
+];
+
 const idValidator = [
     param('id').isInt().withMessage('ID must be an integer')
 ];
 
-module.exports.body = {nameValidator, descriptionValidator, genreIdsValidator};
+module.exports.body = {nameValidator, descriptionValidator, genreIdsValidator, developersIdsValidator};
 module.exports.params = {idValidator};

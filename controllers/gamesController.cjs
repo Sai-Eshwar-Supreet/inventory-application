@@ -2,10 +2,12 @@
 const { validationResult, matchedData } = require('express-validator');
 const gameDB = require('../db/games/repository.cjs');
 const genreDB = require('../db/genres/repository.cjs');
+const developerDB = require('../db/developers/repository.cjs');
 
 const nameValidator = require('../middlewares/validation/formValidation.cjs').body.nameValidator;
 const descriptionValidator = require('../middlewares/validation/formValidation.cjs').body.descriptionValidator;
 const genreIdsValidator = require('../middlewares/validation/formValidation.cjs').body.genreIdsValidator;
+const developersIdsValidator = require('../middlewares/validation/formValidation.cjs').body.developersIdsValidator;
 const idValidator = require('../middlewares/validation/formValidation.cjs').params.idValidator;
 
 async function getAllGames(req, res) {
@@ -16,7 +18,8 @@ async function getAllGames(req, res) {
 async function getCreateForm(req, res) {
     
     const genres = await genreDB.getAllGenres();
-    res.render('pages/games/createForm', {genres});
+    const developers = await developerDB.getAllDevelopers();
+    res.render('pages/games/createForm', {genres, developers});
 }
 
 async function getGameDetails(req, res) {
@@ -36,11 +39,13 @@ async function postCreateForm(req, res) {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         const genres = await genreDB.getAllGenres();
-        return res.status(400).render('pages/games/createForm', { errors: errors.array(), genres });
+        const developers = await developerDB.getAllDevelopers();
+        return res.status(400).render('pages/games/createForm', { errors: errors.array(), genres, developers });
     }
-    const {name, description, genres} = matchedData(req);
-    await gameDB.addGame(name, description, genres);
-    res.redirect("/games");
+    const {name, description, genres, developers} = matchedData(req);
+    const {rows} = await gameDB.addGame(name, description, genres, developers);
+    const {id} = rows[0];
+    res.redirect(`/games/${id}/details`);
 }
 
 async function postDeleteGame(req, res) {
@@ -61,7 +66,8 @@ async function getUpdateForm(req, res) {
     const {id} = matchedData(req);
     const game = await gameDB.getGameById(id);
     const genres = await genreDB.getAllGenres();
-    res.render('pages/games/updateForm', {game, genres});
+    const developers = await developerDB.getAllDevelopers();
+    res.render('pages/games/updateForm', {game, genres, developers});
 }
 
 async function postUpdateGame(req, res) {
@@ -71,23 +77,25 @@ async function postUpdateGame(req, res) {
         return res.status(400).render('pages/games/updateForm', { errors: errors.array(), game: {id: req.params.id, name: req.body.name, description: req.body.description, genres: req.body.genres}, genres });
     }
     const {id} = matchedData(req, {locations: ['params']});
-    const {name, description, genres} = matchedData(req, {locations: ['body']});
-    await gameDB.updateGame(id, name, description, genres);
-    res.redirect("/games");
+    const {name, description, genres, developers} = matchedData(req, {locations: ['body']});
+    await gameDB.updateGame(id, name, description, genres, developers);
+    res.redirect(`/games/${id}/details`);
 }
 
-function normalizeGenreIds(req, res, next) {
+function normalizeIds(req, res, next) {
     if(req.body.genres && !Array.isArray(req.body.genres)){
         req.body.genres = [req.body.genres];
     }
-
+    if(req.body.developers && !Array.isArray(req.body.developers)){
+        req.body.developers = [req.body.developers];
+    }
     next();
 }
 
 module.exports.getAllGames = getAllGames;
 module.exports.getCreateForm = getCreateForm;
 module.exports.getGameDetails = [idValidator, getGameDetails];
-module.exports.postCreateForm = [nameValidator, descriptionValidator, normalizeGenreIds, genreIdsValidator, postCreateForm];
+module.exports.postCreateForm = [nameValidator, descriptionValidator, normalizeIds, genreIdsValidator, developersIdsValidator, postCreateForm];
 module.exports.postDeleteGame = [idValidator, postDeleteGame];
 module.exports.getUpdateForm = [idValidator, getUpdateForm];
-module.exports.postUpdateGame = [idValidator, nameValidator, descriptionValidator, normalizeGenreIds, genreIdsValidator, postUpdateGame];
+module.exports.postUpdateGame = [idValidator, nameValidator, descriptionValidator, normalizeIds, genreIdsValidator, developersIdsValidator, postUpdateGame];

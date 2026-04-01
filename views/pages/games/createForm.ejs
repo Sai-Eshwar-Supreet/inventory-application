@@ -12,10 +12,20 @@
             <label for="description">Description:</label>
             <input type="text" id="description" name="description" required>
             <div>
+                <h3>Genres</h3>
                 <% genres.forEach(genre => { %>
                     <label>
                         <input type="checkbox" name="genres" value="<%= genre.id %>">
                         <%= genre.name %>
+                    </label>
+                <% }) %>
+            </div>
+            <div>
+                <h3>Developers</h3>
+                <% developers.forEach(developer => { %>
+                    <label>
+                        <input type="checkbox" name="developers" value="<%= developer.id %>">
+                        <%= developer.name %>
                     </label>
                 <% }) %>
             </div>

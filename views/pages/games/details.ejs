@@ -7,11 +7,22 @@
 
         <h2><%= game.name %></h2>
         <p><%= game.description %></p>
-        <ul>
-            <% game.genres.forEach(genre => { %>
-                <li><%= genre.name %></li>
-            <% }) %>
-        </ul>
+        <div>
+            <h3>Genres</h3>
+            <ul>
+                <% game.genres.forEach(genre => { %>
+                    <li><%= genre.name %></li>
+                <% }) %>
+            </ul>
+        </div>
+        <div>
+            <h3>Developers</h3>
+            <ul>
+                <% game.developers.forEach(developer => { %>
+                    <li><%= developer.name %></li>
+                <% }) %>
+            </ul>
+        </div>
         <a href="/games/<%= game.id %>/edit">Edit</a>
         <form action="/games/<%= game.id %>/delete" method="POST">
             <button type="submit">Delete</button>
