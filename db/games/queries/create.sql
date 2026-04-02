@@ -1,5 +1,7 @@
 WITH game AS(
-    INSERT INTO games (name, description) VALUES ($1, $2) RETURNING id
+    INSERT INTO games (name, description) 
+    VALUES ($1, $2) 
+    RETURNING id
 ),
 insert_developers AS (
     INSERT INTO game_developers (game_id, developer_id) 
