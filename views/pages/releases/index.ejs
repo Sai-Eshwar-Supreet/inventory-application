@@ -10,6 +10,7 @@
         <ul>
                 <% releases.forEach(release => {%>
                     <li>
+                        <img src="<%= release.coverImagePath %>" alt="<%= release.name %> cover image">
                         <p><%= release.name %></p>
                         <p><%= release.platform %></p>
                         <p><%= release.edition %></p>
