@@ -33,7 +33,6 @@ async function getGameDetails(req, res) {
 
     const game = await gameDB.getGameById(id);
     const releases = await releasesDB.getAllReleasesByGame(id);
-    console.log(releases);
 
     res.render('pages/games/details', {game, releases});
 }

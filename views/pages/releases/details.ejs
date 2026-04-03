@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('../../partials/head') %>
+    <body>
+        <%- include('../../partials/header') %>
+        <%- include('../../partials/nav') %>
+
+        <h2><%= release.name %></h2>
+        <img src="<%= release.coverImagePath %>" alt="<% release.name %> cover image">                
+        <p>Description: <%= release.description %></p>
+        <p>Edition: <%= release.edition %></p>
+        <p>Platform: <%= release.platform %></p>
+        <div>
+            <h3>Genres</h3>
+            <ul>
+                <% release.genres.forEach(genre => { %>
+                    <li><%= genre %></li>
+                <% }) %>
+            </ul>
+        </div>
+        <div>
+            <h3>Developers</h3>
+            <ul>
+                <% release.developers.forEach(developer => { %>
+                    <li><%= developer %></li>
+                <% }) %>
+            </ul>
+        </div>
+
+        <p>Publisher: <%= release.publisher %></p>
+        <p>Region: <%= release.region %></p>
+        <p>Release Date: <%= release.releaseDate.toDateString() %></p>
+        <p>Price: $<%= release.price %></p>
+
+        <div>
+            <h3>Copies</h3>
+            <ul>
+                <% locals.copies?.forEach(copy => {%>
+                    <li>
+                        <img src="<%= copy.coverImagePath %>" alt="<% copy.name %> cover image">
+                        <p><%= copy.platform %></p>
+                        <p><%= copy.edition %></p>
+                        <p><%= copy.region %></p>
+                        <a href="/games/releases/copies/<%= copy.id %>/details">View</a>
+                    </li>
+                <%})%>
+            </ul>
+        </div>
+        <a href="/games/releases/<%= release.id %>/edit">Edit</a>
+        <form action="/games/releasess/<%= release.id %>/delete" method="POST">
+            <button type="submit">Delete</button>
+        </form>
+
+        <%- include('../../partials/footer') %>
+    </body>
+</html>

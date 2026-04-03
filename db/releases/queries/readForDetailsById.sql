@@ -1,4 +1,5 @@
 SELECT 
+    releases.id,
     games.name AS name,
     games.description AS description,
     editions.name AS edition,
@@ -23,5 +24,5 @@ LEFT JOIN genres ON genres.id = game_genres.genre_id
 LEFT JOIN game_developers ON game_developers.game_id = games.id
 LEFT JOIN developers ON developers.id = game_developers.developer_id
 
-WHERE releases.id = $1;
+WHERE releases.id = $1
 GROUP BY games.id,  editions.id, platforms.id, publishers.id, regions.id, releases.id;

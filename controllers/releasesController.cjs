@@ -28,6 +28,18 @@ async function getAllReleases(req, res){
     res.render('pages/releases/index', {releases});
 }
 
+async function getReleaseDetails(req, res){
+    const errors = validationResult(req);
+
+    if(!errors.isEmpty()){
+        return res.sendStatus(400);
+    }
+
+    const {id} = matchedData(req);
+    const release = await releaseDB.getReleaseByIdForDisplay(id);
+    res.render('pages/releases/details', {release});
+}
+
 async function getCreateForm(req, res){
     const games = await gameDB.getAllGames();
     const editions = await editionDB.getAllEditions();
@@ -72,8 +84,6 @@ async function getUpdateForm(req, res){
     const {id} = matchedData(req);
     const release = await releaseDB.getReleaseByIdForForms(id);
 
-    console.log(release);
-
     res.render('pages/releases/updateForm', {games, editions, platforms, publishers, regions, release});
 }
 async function postUpdateForm(req, res){
@@ -89,9 +99,6 @@ async function postUpdateForm(req, res){
         
         const {id} = matchedData(req);
         const release = await releaseDB.getReleaseByIdForForms(id);
-        console.log("Logging here!");
-        console.log(id);
-        console.log(release);
         return res.status(400).render('pages/releases/updateForm', {games, editions, platforms, publishers, regions, release, errors: errors.array()});
     }
 
@@ -105,7 +112,6 @@ async function postUpdateForm(req, res){
 
 async function postDeleteRelease(req, res){
     const errors = validationResult(req);
-    console.log(errors);
     
     if(!errors.isEmpty()){
         return res.sendStatus(400);
@@ -114,7 +120,6 @@ async function postDeleteRelease(req, res){
     const {id} = matchedData(req);
     
     await releaseDB.deleteRelease(id);
-    console.log(id);
     
     res.redirect('/games/releases/');
 }
@@ -125,3 +130,4 @@ module.exports.postCreateForm = [releaseBodyValidation, postCreateForm];
 module.exports.getUpdateForm = [releaseIdParamValidation, getUpdateForm];
 module.exports.postUpdateForm = [releaseIdParamValidation, releaseBodyValidation, postUpdateForm];
 module.exports.postDeleteRelease = [releaseIdParamValidation, postDeleteRelease];
+module.exports.getReleaseDetails = [releaseIdParamValidation, getReleaseDetails];

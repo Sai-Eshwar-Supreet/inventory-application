@@ -9,5 +9,6 @@ releasesRouter.post("/new", releaseController.postCreateForm);
 releasesRouter.get("/:id/edit", releaseController.getUpdateForm);
 releasesRouter.post("/:id/edit", releaseController.postUpdateForm);
 releasesRouter.post("/:id/delete", releaseController.postDeleteRelease);
+releasesRouter.get("/:id/details", releaseController.getReleaseDetails);
 
 module.exports = releasesRouter;
