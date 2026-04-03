@@ -23,6 +23,21 @@
                 <% }) %>
             </ul>
         </div>
+
+        <div>
+            <h3>Releases</h3>
+            <ul>
+                <% releases?.forEach(release => {%>
+                    <li>
+                        <p><%= release.name %></p>
+                        <p><%= release.platform %></p>
+                        <p><%= release.edition %></p>
+                        <p><%= release.region %></p>
+                        <a href="/games/releases/<%= release.id %>/details">View</a>
+                    </li>
+                <%})%>
+            </ul>
+        </div>
         <a href="/games/<%= game.id %>/edit">Edit</a>
         <form action="/games/<%= game.id %>/delete" method="POST">
             <button type="submit">Delete</button>

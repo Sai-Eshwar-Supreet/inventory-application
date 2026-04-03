@@ -3,6 +3,7 @@ const { validationResult, matchedData } = require('express-validator');
 const gameDB = require('../db/games/repository.cjs');
 const genreDB = require('../db/genres/repository.cjs');
 const developerDB = require('../db/developers/repository.cjs');
+const releasesDB = require('../db/releases/repository.cjs');
 
 const nameValidator = require('../middlewares/validation/formValidation.cjs').body.nameValidator;
 const descriptionValidator = require('../middlewares/validation/formValidation.cjs').body.descriptionValidator;
@@ -31,8 +32,9 @@ async function getGameDetails(req, res) {
     const {id} = matchedData(req);
 
     const game = await gameDB.getGameById(id);
+    const releases = await releasesDB.getAllReleasesByGame(id);
 
-    res.render('pages/games/details', {game});
+    res.render('pages/games/details', {game, releases});
 }
 
 async function postCreateForm(req, res) {

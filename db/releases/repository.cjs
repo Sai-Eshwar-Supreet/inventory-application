@@ -1,6 +1,6 @@
 const pool = require('../pool.cjs');
 
-const queries = require('../buildQueries.cjs')(__dirname, 'create', 'read', 'update', 'delete', 'readForDetailsById', 'readForFormById');
+const queries = require('../buildQueries.cjs')(__dirname, 'create', 'read', 'update', 'delete', 'readForDetailsById', 'readForFormById', 'readByGame');
 
 async function addRelease(name, description, genreIds, developerIds) {
     return await pool.query(queries.create, [name, description, genreIds, developerIds]);
@@ -8,6 +8,10 @@ async function addRelease(name, description, genreIds, developerIds) {
 
 async function getAllReleases() {
     const {rows} = await pool.query(queries.read);
+    return rows;
+}
+async function getAllReleasesByGame(gameId){
+    const {rows} = await pool.query(queries.readByGame, [gameId]);
     return rows;
 }
 
@@ -28,9 +32,11 @@ async function updateRelease(id, name, description, genreIds, developerIds) {
     await pool.query(queries.update, [id, name, description, genreIds, developerIds]);
 }
 
+
 module.exports = {
     addRelease,
     getAllReleases,
+    getAllReleasesByGame,
     getReleaseByIdForForms,
     getReleaseByIdForDisplay,
     deleteRelease,
