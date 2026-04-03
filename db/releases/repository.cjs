@@ -2,8 +2,8 @@ const pool = require('../pool.cjs');
 
 const queries = require('../buildQueries.cjs')(__dirname, 'create', 'read', 'update', 'delete', 'readForDetailsById', 'readForFormById', 'readByGame');
 
-async function addRelease(name, description, genreIds, developerIds) {
-    return await pool.query(queries.create, [name, description, genreIds, developerIds]);
+async function addRelease(gameId, editionId, platformId, publisherId, regionId, releaseDate, price, coverImagePath) {
+    return await pool.query(queries.create, [gameId, editionId, platformId, publisherId, regionId, releaseDate, price, coverImagePath]);
 }
 
 async function getAllReleases() {

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('../../partials/head') %>
+    <body>
+        <%- include('../../partials/header') %>
+        <%- include('../../partials/nav') %>
+        <%- include('../../partials/errors') %>
+        <h2>Create Game</h2>
+        <form action="/games/releases/new" method="POST">
+            <%- include('./partials/select', {name: 'game', label: 'Game', values: games}) %>
+            <%- include('./partials/select', {name: 'edition', label: 'Edition', values: editions}) %>
+            <%- include('./partials/select', {name: 'platform', label: 'Platform', values: platforms}) %>
+            <%- include('./partials/select', {name: 'publisher', label: 'Publisher', values: publishers}) %>
+            <%- include('./partials/select', {name: 'region', label: 'Region', values: regions}) %>
+            <label for="releaseDate">Release Date</label>
+            <input type="date" name="releaseDate" id="releaseDate">
+            <label for="price">Price</label>
+            <input type="number" step="0.01" name="price" id="price">
+            <label for="coverImagePath">Cover Image Path</label>
+            <input type="url"  name="coverImagePath" id="coverImagePath">
+            <button type="submit">Create Game Release</button>
+        </form>
+
+        <%- include('../../partials/footer') %>
+    </body>
+</html>

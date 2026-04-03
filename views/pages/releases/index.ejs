@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('../../partials/head') %>
+    <body>
+        <%- include('../../partials/header') %>
+        <%- include('../../partials/nav') %>
+
+        <h2>Releases</h2>
+        <a href="/games/releases/new">Add New Release</a>
+        <ul>
+                <% releases.forEach(release => {%>
+                    <li>
+                        <p><%= release.name %></p>
+                        <p><%= release.platform %></p>
+                        <p><%= release.edition %></p>
+                        <p><%= release.region %></p>
+                        <a href="/games/releases/<%= release.id %>/details">View</a>
+                        <a href="/games/releases/<%= release.id %>/edit">Edit</a>
+                        <form action="/games/releases/<%= release.id %>/delete" method="POST">
+                            <button type="submit">Delete</button>
+                        </form>
+                    </li>
+                <%})%>
+            </ul>
+
+        <%- include('../../partials/footer') %>
+    </body>
+</html>
