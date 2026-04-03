@@ -1,1 +1,0 @@
-INSERT INTO customers (name) VALUES ($1);

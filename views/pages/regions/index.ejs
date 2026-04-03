@@ -3,18 +3,16 @@
     <%- include('../../partials/head') %>
     <body>
         <%- include('../../partials/header') %>
-        <%- include('../../partials/nav') %>
 
-        <h2>Regions</h2>
-        <a href="/regions/new">Add New Region</a>
+        <%- include('../../partials/headers/page-header', {heading: 'Regions'}) %>
+        <%- include('../../partials/actions/create-action', {action: '/regions/new', label: 'Add New Region'}) %>
+
         <ul>
             <% regions.forEach(region => { %>
                 <li>
-                    <span><%= region.name %></span>
-                    <a href="/regions/<%= region.id %>/edit">Edit</a>
-                    <form action="/regions/<%= region.id %>/delete" method="POST">
-                        <button type="submit">Delete</button>
-                    </form>
+                    <%- include('../../partials/headers/card-header', { heading: region.name }) %>
+                    <%- include('../../partials/actions/edit-action', {action: `/regions/${region.id}/edit`}) %>
+                    <%- include('../../partials/actions/delete-action', {action: `/regions/${region.id}/delete`}) %>
                 </li>
             <% }) %>
         </ul>

@@ -3,21 +3,25 @@
     <%- include('../../partials/head') %>
     <body>
         <%- include('../../partials/header') %>
-        <%- include('../../partials/nav') %>
 
-        <h2>Developers</h2>
-        <a href="/developers/new">Add New Developer</a>
-        <ul>
-            <% developers.forEach(developer => { %>
-                <li>
-                    <span><%= developer.name %></span>
-                    <a href="/developers/<%= developer.id %>/edit">Edit</a>
-                    <form action="/developers/<%= developer.id %>/delete" method="POST">
-                        <button type="submit">Delete</button>
-                    </form>
-                </li>
-            <% }) %>
-        </ul>
+        <div class="page-header">
+            <%- include('../../partials/headers/page-header', {heading: 'Developers'}) %>
+            <%- include('../../partials/actions/create-action', {action: '/developers/new', label: 'New'}) %>
+        </div>
+        <main class="content">
+            <ul class="list-card-container">
+                <% developers.forEach(developer => { %>
+                    <li class="list-card">
+                        <%- include('../../partials/headers/card-header', {heading: developer.name}) %>
+            
+                        <div class="tool-bar">
+                            <%- include('../../partials/actions/edit-action', { action:`/developers/${developer.id}/edit` }) %>
+                            <%- include('../../partials/actions/delete-action', { action:`/developers/${developer.id}/delete`, label: "Delete" }) %>
+                        </div>
+                    </li>
+                <% }) %>
+            </ul>
+        </main>
 
         <%- include('../../partials/footer') %>
     </body>

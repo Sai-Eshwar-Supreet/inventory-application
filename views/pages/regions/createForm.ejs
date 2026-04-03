@@ -3,13 +3,11 @@
     <%- include('../../partials/head') %>
     <body>
         <%- include('../../partials/header') %>
-        <%- include('../../partials/nav') %>
         <%- include('../../partials/errors') %>
-        <h2>Create Region</h2>
-        <form action="/regions/new" method="POST">
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name" required>
-            <button type="submit">Create Region</button>
+        <%- include('../../partials/headers/page-header', {heading: 'Create Region'}) %>
+        <form class="form" action="/regions/new" method="POST">
+            <%- include('../../partials/inputs/text-input', { label: 'Name:', name: 'name', required: false }) %>
+            <%- include('../../partials/buttons/submit-button', {label : 'Create Region'}) %>;
         </form>
 
         <%- include('../../partials/footer') %>
