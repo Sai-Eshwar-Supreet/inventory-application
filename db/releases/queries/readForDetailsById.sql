@@ -7,9 +7,9 @@ SELECT
     ARRAY_AGG(DISTINCT developers.name) AS developers,
     publishers.name AS publisher,
     regions.name AS region,
-    releases.release_date AS releaseDate,
+    releases.release_date AS "releaseDate",
     releases.price AS price,
-    releases.cover_image_path AS coverImagePath
+    releases.cover_image_path AS "coverImagePath"
 FROM releases 
 JOIN games ON games.id = releases.game_id
 JOIN editions ON editions.id = releases.edition_id

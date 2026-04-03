@@ -16,11 +16,11 @@ async function getAllReleasesByGame(gameId){
 }
 
 async function getReleaseByIdForForms(id) {
-    const {rows} = await pool.query(queries.readById, [id]);
+    const {rows} = await pool.query(queries.readForFormById, [id]);
     return rows[0];
 }
 async function getReleaseByIdForDisplay(id) {
-    const {rows} = await pool.query(queries.readById, [id]);
+    const {rows} = await pool.query(queries.readForDetailsById, [id]);
     return rows[0];
 }
 
@@ -28,8 +28,8 @@ async function deleteRelease(id) {
     await pool.query(queries.delete, [id]);
 }
 
-async function updateRelease(id, name, description, genreIds, developerIds) {
-    await pool.query(queries.update, [id, name, description, genreIds, developerIds]);
+async function updateRelease(id, gameId, editionId, platformId, publisherId, regionId, releaseDate, price, coverImagePath) {
+    await pool.query(queries.update, [id, gameId, editionId, platformId, publisherId, regionId, releaseDate, price, coverImagePath]);
 }
 
 

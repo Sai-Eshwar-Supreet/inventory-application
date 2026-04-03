@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('../../partials/head') %>
+    <body>
+        <%- include('../../partials/header') %>
+        <%- include('../../partials/nav') %>
+        <%- include('../../partials/errors') %>
+        <h2>Update Release</h2>
+        <form action="/games/releases/<%= release.id %>/edit " method="POST">
+            <%- include('./partials/select', {name: 'game', label: 'Game', values: games, selected: release.gameId}) %>
+            <%- include('./partials/select', {name: 'edition', label: 'Edition', values: editions, selected: release.editionId}) %>
+            <%- include('./partials/select', {name: 'platform', label: 'Platform', values: platforms, selected: release.platformId}) %>
+            <%- include('./partials/select', {name: 'publisher', label: 'Publisher', values: publishers, selected: release.publisherId}) %>
+            <%- include('./partials/select', {name: 'region', label: 'Region', values: regions, selected: release.regionId}) %>
+            <label for="releaseDate">Release Date</label>
+            <input type="date" name="releaseDate" id="releaseDate" value="<%= release.releaseDate.toISOString().split('T')[0] %>">
+            <label for="price">Price</label>
+            <input type="number" step="0.01" name="price" id="price" value="<%= release.price %>">
+            <label for="coverImagePath">Cover Image Path</label>
+            <input type="url"  name="coverImagePath" id="coverImagePath" value="<%= release.coverImagePath %>">
+            <button type="submit">Update Game Release</button>
+        </form>
+
+        <%- include('../../partials/footer') %>
+    </body>
+</html>

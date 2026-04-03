@@ -1,1 +1,1 @@
-DELETE FROM games WHERE id = $1;
+DELETE FROM releases WHERE id = $1;

@@ -77,7 +77,8 @@ async function postUpdateGame(req, res) {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         const genres = await genreDB.getAllGenres();
-        return res.status(400).render('pages/games/updateForm', { errors: errors.array(), game: {id: req.params.id, name: req.body.name, description: req.body.description, genres: req.body.genres}, genres });
+        const developers = await developerDB.getAllDevelopers();
+        return res.status(400).render('pages/games/updateForm', { errors: errors.array(), game: {id: req.params.id, name: req.body.name, description: req.body.description, genres: req.body.genres}, genres, developers });
     }
     const {id} = matchedData(req, {locations: ['params']});
     const {name, description, genres, developers} = matchedData(req, {locations: ['body']});

@@ -1,5 +1,5 @@
 
-const { validationResult, matchedData, body } = require('express-validator');
+const { validationResult, matchedData, body, param } = require('express-validator');
 const releaseDB = require('../db/releases/repository.cjs');
 const gameDB = require('../db/games/repository.cjs');
 const editionDB = require('../db/editions/repository.cjs');
@@ -7,7 +7,7 @@ const platformDB = require('../db/platforms/repository.cjs');
 const publisherDB = require('../db/publishers/repository.cjs');
 const regionDB = require('../db/regions/repository.cjs');
 
-const releaseCreationValidation = [
+const releaseBodyValidation = [
     body('game').toInt().isInt().withMessage('Please select a valid game'),
     body('edition').toInt().isInt().withMessage('Please select a valid edition'),
     body('platform').toInt().isInt().withMessage('Please select a valid platform'),
@@ -17,6 +17,10 @@ const releaseCreationValidation = [
     body('price').isFloat().withMessage('Please enter a valid price'),
     body('coverImagePath').isURL().withMessage('Please enter a valid url').bail()
     .matches(/\.(png|jpe?g|gif)$/).withMessage('Expects image url to be .PNG, .JPEG, .JPG, .GIF'),
+];
+
+const releaseIdParamValidation = [
+    param('id').toInt().isInt().withMessage('Please enter a valid id'),
 ];
 
 async function getAllReleases(req, res){
@@ -53,6 +57,71 @@ async function postCreateForm(req, res) {
     res.redirect(`/games/releases/${id}/details`);
 }
 
+async function getUpdateForm(req, res){
+    const errors = validationResult(req);
+    
+    if(!errors.isEmpty()){
+        return res.sendStatus(400);
+    }
+    const games = await gameDB.getAllGames();
+    const editions = await editionDB.getAllEditions();
+    const platforms = await platformDB.getAllPlatforms();
+    const publishers = await publisherDB.getAllPublishers();
+    const regions = await regionDB.getAllRegions();
+
+    const {id} = matchedData(req);
+    const release = await releaseDB.getReleaseByIdForForms(id);
+
+    console.log(release);
+
+    res.render('pages/releases/updateForm', {games, editions, platforms, publishers, regions, release});
+}
+async function postUpdateForm(req, res){
+    const errors = validationResult(req);
+    
+    if(!errors.isEmpty()){
+        
+        const games = await gameDB.getAllGames();
+        const editions = await editionDB.getAllEditions();
+        const platforms = await platformDB.getAllPlatforms();
+        const publishers = await publisherDB.getAllPublishers();
+        const regions = await regionDB.getAllRegions();
+        
+        const {id} = matchedData(req);
+        const release = await releaseDB.getReleaseByIdForForms(id);
+        console.log("Logging here!");
+        console.log(id);
+        console.log(release);
+        return res.status(400).render('pages/releases/updateForm', {games, editions, platforms, publishers, regions, release, errors: errors.array()});
+    }
+
+    const {id} = matchedData(req, {locations: ['params']});
+    const {game, edition, platform, publisher, region, releaseDate, price, coverImagePath} = matchedData(req, {locations: 'body'});
+
+    await releaseDB.updateRelease(id, game, edition, platform, publisher, region, releaseDate, price, coverImagePath);
+
+    res.redirect(`/games/releases/${id}/details`);
+}
+
+async function postDeleteRelease(req, res){
+    const errors = validationResult(req);
+    console.log(errors);
+    
+    if(!errors.isEmpty()){
+        return res.sendStatus(400);
+    }
+    
+    const {id} = matchedData(req);
+    
+    await releaseDB.deleteRelease(id);
+    console.log(id);
+    
+    res.redirect('/games/releases/');
+}
+
 module.exports.getAllReleases = getAllReleases;
 module.exports.getCreateForm = getCreateForm;
-module.exports.postCreateForm = [releaseCreationValidation, postCreateForm];
+module.exports.postCreateForm = [releaseBodyValidation, postCreateForm];
+module.exports.getUpdateForm = [releaseIdParamValidation, getUpdateForm];
+module.exports.postUpdateForm = [releaseIdParamValidation, releaseBodyValidation, postUpdateForm];
+module.exports.postDeleteRelease = [releaseIdParamValidation, postDeleteRelease];
