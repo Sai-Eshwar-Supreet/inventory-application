@@ -89,6 +89,9 @@ body{
 
 .content{
     padding: var(--space-medium);
+    
+    width: min(500px, 100%);
+    margin: 0 auto;
 }
 
 .footer{
@@ -258,25 +261,20 @@ textarea{
 }
 
 .form{
-    display: grid;
-    grid-template-columns: 150px 1fr;
+    display: flex;
+    flex-direction: column;
 
-    gap: var(--space-small);
+    gap: var(--space-medium);
     
     padding: var(--space-medium);
 }
 
-.form button{
-    grid-column: 1 / -1;
-    
-    justify-self: center;
-}
 
 .input-row{
-    display: grid;
-    grid-template-columns: subgrid;
+    display: flex;
+    flex-direction: column;
 
-    grid-column: 1 / -1;
+    gap: var(--space-small);
 }
 
 
@@ -285,10 +283,7 @@ textarea{
 .list-card-container{
     display: flex;
     flex-direction: column;
-    
-    width: min(500px, 100%);
     gap: var(--space-small);
-    margin: auto;
 }
 
 .list-card{
