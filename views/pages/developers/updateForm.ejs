@@ -3,13 +3,16 @@
     <%- include('../../partials/head') %>
     <body>
         <%- include('../../partials/header') %>
-        <%- include('../../partials/errors') %>
-        <h2>Update Developer</h2>
-        <form action="/developers/<%= developer.id %>/edit" method="POST">
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name" value="<%= developer.name %>" required>
-            <button type="submit">Update Developer</button>
-        </form>
+        <div class="page-header">
+            <%- include('../../partials/headers/page-header', {heading: 'Update Developer'}) %>
+        </div>
+        <div class="content">
+            <%- include('../../partials/errors') %>
+            <form class="form" action="/developers/<%= developer.id %>/edit" method="POST">
+                <%- include('../../partials/inputs/text-input', {name: 'name', label: 'Name:', value: developer.name, required: true}) %>
+                <%- include('../../partials/buttons/submit-button', {label: 'Update Developer'}) %>
+            </form>
+        </div>
 
         <%- include('../../partials/footer') %>
     </body>

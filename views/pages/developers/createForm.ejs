@@ -3,8 +3,10 @@
     <%- include('../../partials/head') %>
     <body>
         <%- include('../../partials/header') %>
+        <div class="page-header">
+            <%- include('../../partials/headers/page-header', {heading: 'Create Developer'}) %>
+        </div>
         <main class="content">
-            <div class="page-header"><%- include('../../partials/headers/page-header', {heading: 'Create Developer'}) %></div>
             <%- include('../../partials/errors') %>
             <form class="form" action="/developers/new" method="POST">
                 <%- include('../../partials/inputs/text-input', {name: 'name', label: 'Name:', required: true}) %>
