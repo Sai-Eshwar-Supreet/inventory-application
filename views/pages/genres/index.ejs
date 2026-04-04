@@ -3,20 +3,47 @@
     <%- include('../../partials/head') %>
     <body>
         <%- include('../../partials/header') %>
+        <div class="page-header">
+            <%- include('../../partials/headers/page-header', 
+                {
+                    heading: 'Editions'
+                }
+            )%>
+            <%- include('../../partials/actions/create-action', 
+                {
+                    action: '/genres/new', 
+                    label: 'New'
+                }
+            )%>
+        </div>
 
-        <h2>Genres</h2>
-        <a href="/genres/new">Add New Genre</a>
-        <ul>
-            <% genres.forEach(genre => { %>
-                <li>
-                    <span><%= genre.name %></span>
-                    <a href="/genres/<%= genre.id %>/edit">Edit</a>
-                    <form action="/genres/<%= genre.id %>/delete" method="POST">
-                        <button type="submit">Delete</button>
-                    </form>
-                </li>
-            <% }) %>
-        </ul>
+        <main class="content">
+            <ul class="list-card-container">
+                <% genres.forEach(genre => { %>
+                    <li class="list-card">
+                        <%- include('../../partials/headers/card-header', 
+                            {
+                                heading: genre.name
+                            }
+                        )%>
+                        
+                        <div class="tool-bar">
+                            <%- include('../../partials/actions/edit-action', 
+                                { 
+                                    action:`/genres/${genre.id}/edit` 
+                                }
+                            )%>
+                            <%- include('../../partials/actions/delete-action', 
+                                { 
+                                    action:`/genres/${genre.id}/delete`, 
+                                    label: "Delete" 
+                                }
+                            )%>
+                        </div>
+                    </li>
+                <% }) %>
+            </ul>
+        </main>
 
         <%- include('../../partials/footer') %>
     </body>

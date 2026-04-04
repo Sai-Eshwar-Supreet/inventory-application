@@ -3,13 +3,32 @@
     <%- include('../../partials/head') %>
     <body>
         <%- include('../../partials/header') %>
-        <%- include('../../partials/errors') %>
-        <h2>Update Genre</h2>
-        <form action="/genres/<%= genre.id %>/edit" method="POST">
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name" value="<%= genre.name %>" required>
-            <button type="submit">Update Genre</button>
-        </form>
+        <div class="page-header">
+            <%- include('../../partials/headers/page-header', 
+                {
+                    heading: 'Update Edition'
+                }
+            )%>
+        </div>
+
+        <main class="content">
+            <%- include('../../partials/errors') %>
+            <form class="form" action="/genres/<%= genre.id %>/edit" method="POST">
+                <%- include('../../partials/inputs/text-input', 
+                    {
+                        name: 'name', 
+                        label: 'Name:', 
+                        value: genre.name, 
+                        required: true
+                    }
+                )%>
+                <%- include('../../partials/buttons/submit-button', 
+                    {
+                        label: 'Update Genre'
+                    }
+                )%>
+            </form>
+        </main>
 
         <%- include('../../partials/footer') %>
     </body>
