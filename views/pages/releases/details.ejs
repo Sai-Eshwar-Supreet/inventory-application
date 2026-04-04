@@ -4,51 +4,138 @@
     <body>
         <%- include('../../partials/header') %>
 
-        <h2><%= release.name %></h2>
-        <img src="<%= release.coverImagePath %>" alt="<% release.name %> cover image">                
-        <p>Description: <%= release.description %></p>
-        <p>Edition: <%= release.edition %></p>
-        <p>Platform: <%= release.platform %></p>
-        <div>
-            <h3>Genres</h3>
-            <ul>
-                <% release.genres.forEach(genre => { %>
-                    <li><%= genre %></li>
-                <% }) %>
-            </ul>
-        </div>
-        <div>
-            <h3>Developers</h3>
-            <ul>
-                <% release.developers.forEach(developer => { %>
-                    <li><%= developer %></li>
-                <% }) %>
-            </ul>
-        </div>
+        <div class="page-header">
+            <%- include('../../partials/headers/page-header', 
+                {
+                    heading: release.name
+                }
+            )%>
+            <div class="tool-bar">
+                <%- include('../../partials/actions/edit-action', 
+                    { 
+                        action:`/games/releases/${release.id}/edit` 
+                    }
+                )%>
+                <%- include('../../partials/actions/delete-action', 
+                    { 
+                        action:`/games/releases/${release.id}/delete`, 
+                        label: "Delete" 
+                    }
+                )%>
+                </div>
+            </div>
+            <main class="content split-content">
+                <div class="image-container"><img class="cover-image" src="<%= release.coverImagePath %>" alt="<% release.name %> cover image"></div>
+                <div class="split-item-left">
 
-        <p>Publisher: <%= release.publisher %></p>
-        <p>Region: <%= release.region %></p>
-        <p>Release Date: <%= release.releaseDate.toDateString() %></p>
-        <p>Price: $<%= release.price %></p>
-
-        <div>
-            <h3>Copies</h3>
-            <ul>
-                <% locals.copies?.forEach(copy => {%>
-                    <li>
-                        <img src="<%= copy.coverImagePath %>" alt="<% copy.name %> cover image">
-                        <p><%= copy.platform %></p>
-                        <p><%= copy.edition %></p>
-                        <p><%= copy.region %></p>
-                        <a href="/games/releases/copies/<%= copy.id %>/details">View</a>
-                    </li>
-                <%})%>
-            </ul>
-        </div>
-        <a href="/games/releases/<%= release.id %>/edit">Edit</a>
-        <form action="/games/releasess/<%= release.id %>/delete" method="POST">
-            <button type="submit">Delete</button>
-        </form>
+                    <div class="detail-group">
+                        <%- include('../../partials/headers/list-header', 
+                            {
+                                heading: 'PRICE'
+                            }
+                        )%>
+                        <%- include('../../partials/others/list', 
+                            {
+                                values: [`\$${release.price}`]
+                            }
+                        )%>
+                    </div>
+                    <div class="detail-group">
+                        <%- include('../../partials/headers/list-header', 
+                            {
+                                heading: 'EDITION'
+                            }
+                        )%>
+                        <%- include('../../partials/others/list', 
+                            {
+                                values: [release.edition]
+                            }
+                        )%>
+                    </div>
+                    <div class="detail-group">
+                        <%- include('../../partials/headers/list-header', 
+                            {
+                                heading: 'PLATFORM'
+                            }
+                        )%>
+                        <%- include('../../partials/others/list', 
+                            {
+                                values: [release.platform]
+                            }
+                        )%>
+                    </div>
+                    <div class="detail-group">
+                        <%- include('../../partials/headers/list-header',
+                            {
+                                heading: 'GENRES'
+                            }
+                        )%>
+                        <%- include('../../partials/others/list',
+                            {
+                                values: release.genres
+                            }
+                        )%>
+                    </div>
+                    <div class="detail-group">
+                        <%- include('../../partials/headers/list-header',
+                            {
+                                heading: 'PUBLISHER'
+                            }
+                        )%>
+                        <%- include('../../partials/others/list',
+                            {
+                                values: [release.publisher]
+                            }
+                        )%>
+                    </div>
+                    <div class="detail-group">
+                        <%- include('../../partials/headers/list-header',
+                            {
+                                heading: 'DEVELOPERS'
+                            }
+                        )%>
+                        <%- include('../../partials/others/list',
+                            {
+                                values: release.developers
+                            }
+                        )%>
+                    </div>
+                    <div class="detail-group">
+                        <%- include('../../partials/headers/list-header',
+                            {
+                                heading: 'REGION'
+                            }
+                        )%>
+                        <%- include('../../partials/others/list',
+                            {
+                                values: [release.region]
+                            }
+                        )%>
+                    </div>
+                    <div class="detail-group">
+                        <%- include('../../partials/headers/list-header', 
+                            {
+                                heading: 'RELEASE DATE'
+                            }
+                        )%>
+                        <%- include('../../partials/others/list', 
+                            {
+                                values: [release.releaseDate.toDateString()]
+                            }
+                        )%>
+                    </div>
+                </div>
+                <div class="split-item-right">
+                    <div class="detail-group">
+                        <%- include('../../partials/headers/list-header', 
+                            {
+                                heading: 'OVERVIEW'
+                            }
+                        )%>
+                        <p class="description"><%= release.description %></p>
+                    </div>
+                </div>
+        </main>
 
         <%- include('../../partials/footer') %>
     </body>

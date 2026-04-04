@@ -13,19 +13,27 @@
         </div>
         <main class="content">
             <div class="detail-group">
-                <%- include('../../partials/headers/section-header', {heading: 'Overview'}) %>
+                <%- include('../../partials/headers/list-header', {heading: 'OVERVIEW'}) %>
                 <p class="description"><%= game.description %></p>
             </div>
             <div class="detail-group">
-                <%- include('../../partials/headers/section-header', {heading: 'Genres'}) %>
-                <%- include('../../partials/others/chip-list', {values: game.genres}) %>
+                <%- include('../../partials/headers/list-header', {heading: 'GENRES'}) %>
+                <%- include('../../partials/others/list', {values: game.genres}) %>
             </div>
             <div class="detail-group">
-                <%- include('../../partials/headers/section-header', {heading: 'Developers'}) %>
-                <%- include('../../partials/others/chip-list', {values: game.developers}) %>
+                <%- include('../../partials/headers/list-header', {heading: 'DEVELOPERS'}) %>
+                <%- include('../../partials/others/list', {values: game.developers}) %>
             </div>
             <div class="detail-group">
-                <%- include('../../partials/headers/section-header', {heading: 'Available Releases'}) %>
+                <div class="page-header">
+                    <%- include('../../partials/headers/list-header', {heading: 'AVAILABLE RELEASES'}) %>
+                    <%- include('../../partials/actions/create-action',
+                        {
+                            action: '/games/releases/new',
+                            label: 'New'
+                        }
+                    )%>
+                </div>
                 <%- include('./release-card', {releases}) %>
             </div>
         </main>

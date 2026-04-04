@@ -6,6 +6,7 @@
     margin: 0;
     padding: 0;
     font: inherit;
+    font-family: "Inter", sans-serif;
 }
 
 image{
@@ -49,13 +50,18 @@ image{
     --shadow-regular: 0 0 8px 0 rgba(0, 0, 0, 0.15);
     --shadow-heavy: 0 0 8px 0 rgba(0, 0, 0, 0.25);
 
+    --shadow-inner-light: inset 0 0 8px 0 rgba(0, 0, 0, 0.08);
+    --shadow-inner-regular: inset 0 0 8px 0 rgba(0, 0, 0, 0.15);
+    --shadow-inner-heavy: inset 0 0 8px 0 rgba(0, 0, 0, 0.25);
+
     /* Colors */
     --color-bg-base: #fbfaf8;
     --color-neutral-900: black;
     --color-neutral-800: rgb(77, 77, 77);
     --color-neutral-600: gray;
+    --color-neutral-500: rgb(148, 148, 148);
     --color-neutral-400: rgb(167, 167, 167);
-    --color-neutral-200: lightgray;
+    --color-neutral-200: rgb(221, 221, 221);
     --color-neutral-150: rgb(235, 235, 235);
     --color-neutral-100: white;
 
@@ -81,17 +87,48 @@ body{
     align-items: center;
 
     box-shadow: var(--shadow-lift-light);
-    background-color: white;
+    background-color: var(--color-neutral-100);
 
     position: sticky;
     top: 0;
+
+    z-index: 1;
 }
 
 .content{
     padding: var(--space-medium);
     
-    width: min(600px, 100%);
+    width: min(900px, 100%);
     margin: 0 auto;
+}
+
+.split-content{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    gap: var(--space-small);
+
+    justify-content:stretch;
+}
+
+.split-item-left, .split-item-right{
+    padding: var(--space-medium);
+
+    border: 1px solid var(--color-neutral-150);
+
+    box-shadow: var(--shadow-card);
+
+    border-radius: var(--radius-small);
+}
+
+.split-item-left{
+    flex: 1;
+}
+
+.split-item-right{
+    flex: 3;
+    min-width: min(500px, 100%);
 }
 
 .footer{
@@ -132,6 +169,15 @@ body{
 .card-heading{
     font-size: var(--font-size-small);
     font-weight: var(--font-weight-semi);
+}
+.list-heading{
+    color: var(--color-neutral-500);
+    font-weight: var(--font-weight-bold);
+    font-size: var(--font-size-small);
+}
+
+.main-heading, .page-heading, .section-heading, .card-heading, .list-heading{
+    font-family: 'Sora', sans-serif;
 }
 
 /* ==================== HAMBURGER MENU ==================== */
@@ -244,23 +290,78 @@ body{
 
 /* ==================== FORM AND INPUTS ==================== */
 
-input, textarea{
+input, textarea, select{
     padding: var(--space-small);
+    border: 1px solid var(--color-neutral-200);
+    border-radius: var(--radius-small);
     min-height: 40px;
 
-    border-radius: var(--radius-small);
+    background-color: var(--color-neutral-100);
 
-    border: 1px solid var(--color-neutral-900);
+    transition: background-color 0.4s ease;
+}
+
+input:not([type='checkbox']):hover, input:not([type='checkbox']):focus,
+textarea:hover, textarea:focus,
+select:hover, select:focus{
+    box-shadow: var(--shadow-inner-regular);
+}
+
+select::picker-icon{
+    color: var(--color-neutral-500);
+    transition: transform 0.1s ease;
+    transform-origin: center;
+}
+
+select:open::picker-icon{
+    transform: rotateZ(180deg);
 }
 
 textarea{
     resize: vertical;
-
+    
     min-height: 250px;
 }
 
 select, ::picker(select){
     appearance: base-select;
+}
+
+select{
+    display: flex;
+    align-items: center; 
+}
+option {
+  display: flex;
+  justify-content: flex-start;
+  gap: 20px;
+  padding: 10px;
+  transition: 0.15s;
+}
+
+option:first-of-type {
+  border-radius: 8px 8px 0 0;
+}
+
+option:last-of-type {
+  border-radius: 0 0 8px 8px;
+}
+
+::picker(select) {
+    border: none;
+    border-radius: 8px;
+    outline: 2px solid var(--color-neutral-900);
+}
+
+option:hover,
+option:focus,
+option:checked {
+  background: var(--color-accent);
+  color: var(--color-neutral-100);
+}
+
+option:checked {
+  color: var(--color-neutral-100);
 }
 
 .form{
@@ -270,6 +371,13 @@ select, ::picker(select){
     gap: var(--space-medium);
     
     padding: var(--space-medium);
+
+    box-shadow: var(--shadow-light);
+    border: 1px solid var(--color-neutral-150);
+
+    background-color: var(--color-neutral-100);
+
+    border-radius: var(--radius-small);
 }
 
 
@@ -306,7 +414,7 @@ fieldset .input-group{
     flex-wrap: wrap;
     gap: var(--space-medium);
     
-    border: 1px solid var(--color-neutral-900);
+    border: 1px solid var(--color-neutral-200);
     border-radius: var(--radius-small);
     padding: var(--space-small);
 
@@ -363,12 +471,16 @@ fieldset .input-group{
     padding: var(--space-small);
 }
 
-.grid-card .image-container{
+.image-container{
     width: 100%;
     object-fit: cover;
     object-position: top;
     
     position: relative;
+
+    border-radius: var(--radius-small);
+
+    overflow: hidden;
 }
 .grid-card img{
     width: 100%;
@@ -376,7 +488,7 @@ fieldset .input-group{
     object-position: top;
 }
 
-.grid-card .image-container::after{
+.image-container::after{
     content: '';
     position: absolute;
     inset: 0;
@@ -394,17 +506,32 @@ fieldset .input-group{
 
     margin: var(--space-medium) 0;
 }
-.description{
-    text-align: center;
-    color: var(--color-neutral-600);
+
+.detail-group .page-header{
+    padding: 0;
+    margin: 0;
 }
 
-.chip-list{
+.description{
+    white-space: pre-line;
+}
+
+.list{
     display: flex;
     flex-wrap: wrap;
-    gap: var(--space-small);
+
+    justify-content: center;
+    align-items: center;
 
     list-style-type: none;
+}
+
+.list-item{
+    padding: 0 var(--space-small);
+}
+
+.list-item + .list-item{
+    border-left: 1px solid var(--color-neutral-800);
 }
 
 .chip{
@@ -413,4 +540,10 @@ fieldset .input-group{
     border-radius: var(--radius-small);
 }
 
-/* RELEASE CARDS */
+.cover-image{
+    width: 100%;
+    aspect-ratio: 16/9;
+
+    object-fit: cover;
+    object-position: top;
+}
