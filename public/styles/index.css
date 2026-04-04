@@ -259,6 +259,10 @@ textarea{
     min-height: 250px;
 }
 
+select, ::picker(select){
+    appearance: base-select;
+}
+
 .form{
     display: flex;
     flex-direction: column;

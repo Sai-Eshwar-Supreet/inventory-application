@@ -3,22 +3,84 @@
     <%- include('../../partials/head') %>
     <body>
         <%- include('../../partials/header') %>
-        <%- include('../../partials/errors') %>
-        <h2>Create Release</h2>
-        <form action="/games/releases/new" method="POST">
-            <%- include('./partials/select', {name: 'game', label: 'Game', values: games}) %>
-            <%- include('./partials/select', {name: 'edition', label: 'Edition', values: editions}) %>
-            <%- include('./partials/select', {name: 'platform', label: 'Platform', values: platforms}) %>
-            <%- include('./partials/select', {name: 'publisher', label: 'Publisher', values: publishers}) %>
-            <%- include('./partials/select', {name: 'region', label: 'Region', values: regions}) %>
-            <label for="releaseDate">Release Date</label>
-            <input type="date" name="releaseDate" id="releaseDate">
-            <label for="price">Price</label>
-            <input type="number" step="0.01" name="price" id="price">
-            <label for="coverImagePath">Cover Image Path</label>
-            <input type="url"  name="coverImagePath" id="coverImagePath">
-            <button type="submit">Create Game Release</button>
-        </form>
+        
+        <div class="page-header">
+            <%- include('../../partials/headers/page-header', 
+                {
+                    heading: 'Create Release'
+                }
+            )%>
+        </div>
+        <main class="content">
+            
+            <%- include('../../partials/errors') %>
+            <form class="form" action="/games/releases/new" method="POST">
+                <%- include('../../partials/inputs/select-input',
+                    {
+                        name: 'game',
+                        label: 'Game',
+                        values: games,
+                        required: true,
+                    }
+                    )%>
+                    <%- include('../../partials/inputs/select-input',
+                    {
+                        name: 'edition',
+                        label: 'Edition',
+                        values: editions,
+                        required: true,
+                    }
+                    )%>
+                    <%- include('../../partials/inputs/select-input',
+                    {
+                        name: 'platform',
+                        label: 'Platform',
+                        values: platforms,
+                        required: true,
+                    }
+                    )%>
+                    <%- include('../../partials/inputs/select-input',
+                    {
+                        name: 'publisher',
+                        label: 'Publisher',
+                        values: publishers,
+                        required: true,
+                    }
+                    )%>
+                    <%- include('../../partials/inputs/select-input',
+                    {
+                        name: 'region',
+                        label: 'Region',
+                        values: regions,
+                        required: true,
+                    }
+                )%>
+                <%- include('../../partials/inputs/date-input',
+                    {
+                        name: 'releaseDate',
+                        label: 'Release Date',
+                    }
+                )%>
+                <%- include('../../partials/inputs/number-input',
+                    {
+                        name: 'price',
+                        label: 'Price',
+                        step: 0.01,
+                    }
+                )%>
+                <%- include('../../partials/inputs/url-input',
+                    {
+                        name: 'coverImagePath',
+                        label: 'Cover Image Path',
+                    }
+                )%>
+                <%- include('../../partials/buttons/submit-button', 
+                    {
+                        label : 'Create Game Release'
+                    }
+                )%>
+            </form>
+        </main>
 
         <%- include('../../partials/footer') %>
     </body>

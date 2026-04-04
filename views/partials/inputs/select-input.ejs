@@ -1,6 +1,9 @@
-<div>
+<div class="input-row">
     <label for="<%= name %>"><%= label %></label>
     <select name="<%= name %>" id="<%= name %>">
+        <button>
+            <selectedcontent></selectedcontent>
+        </button>
         <% values.forEach(value => { %>
             <option value="<%= value.id %>" <%= value.id === locals?.selected ? 'selected' : '' %> ><%= value.name %></option>
         <% }) %>
