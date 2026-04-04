@@ -3,12 +3,32 @@
     <%- include('../../partials/head') %>
     <body>
         <%- include('../../partials/header') %>
-        <%- include('../../partials/errors') %>
-        <%- include('../../partials/headers/page-header', {heading: 'Create Region'}) %>
-        <form class="form" action="/regions/new" method="POST">
-            <%- include('../../partials/inputs/text-input', { label: 'Name:', name: 'name', required: false }) %>
-            <%- include('../../partials/buttons/submit-button', {label : 'Create Region'}) %>;
-        </form>
+
+        <div class="page-header">
+            <%- include('../../partials/headers/page-header', 
+                {
+                    heading: 'Create Region'
+                }
+            )%>
+        </div>
+
+        <main class="content">
+            <%- include('../../partials/errors') %>
+            <form class="form" action="/regions/new" method="POST">
+                <%- include('../../partials/inputs/text-input', 
+                    { 
+                        label: 'Name:', 
+                        name: 'name', 
+                        required: false 
+                    }
+                )%>
+                <%- include('../../partials/buttons/submit-button', 
+                    {
+                        label : 'Create Region'
+                    }
+                )%>
+            </form>
+        </main>
 
         <%- include('../../partials/footer') %>
     </body>

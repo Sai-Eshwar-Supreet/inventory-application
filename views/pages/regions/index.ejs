@@ -4,18 +4,48 @@
     <body>
         <%- include('../../partials/header') %>
 
-        <%- include('../../partials/headers/page-header', {heading: 'Regions'}) %>
-        <%- include('../../partials/actions/create-action', {action: '/regions/new', label: 'Add New Region'}) %>
-
-        <ul>
-            <% regions.forEach(region => { %>
-                <li>
-                    <%- include('../../partials/headers/card-header', { heading: region.name }) %>
-                    <%- include('../../partials/actions/edit-action', {action: `/regions/${region.id}/edit`}) %>
-                    <%- include('../../partials/actions/delete-action', {action: `/regions/${region.id}/delete`}) %>
-                </li>
-            <% }) %>
-        </ul>
+        <div class="page-header">
+            <%- include('../../partials/headers/page-header', 
+                {
+                    heading: 'Regions'
+                }
+            )%>
+            <%- include('../../partials/actions/create-action', 
+                {
+                    action: '/regions/new', 
+                    label: 'New'
+                }
+            )%>
+        </div>
+        
+        <main class="content">
+            <ul class="list-card-container">
+                <% regions.forEach(region => { %>
+                    <li class="list-card">
+                        <%- include('../../partials/headers/card-header', 
+                            {
+                                heading: region.name
+                            }
+                        )%>
+                            
+                        <div class="tool-bar">
+                            <%- include('../../partials/actions/edit-action', 
+                                { 
+                                    action:`/regions/${region.id}/edit` 
+                                }
+                            )%>
+                            <%- include('../../partials/actions/delete-action', 
+                                { 
+                                    action:`/regions/${region.id}/delete`, 
+                                    label: "Delete" 
+                                }
+                            )%>
+                        </div>
+                        
+                    </li>
+                <% }) %>
+            </ul>
+        </main>
 
         <%- include('../../partials/footer') %>
     </body>
