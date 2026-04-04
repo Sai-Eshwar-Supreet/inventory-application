@@ -3,20 +3,24 @@
     <%- include('../../partials/head') %>
     <body>
         <%- include('../../partials/header') %>
-
-        <h2>Editions</h2>
-        <a href="/editions/new">Add New Edition</a>
-        <ul>
-            <% editions.forEach(edition => { %>
-                <li>
-                    <span><%= edition.name %></span>
-                    <a href="/editions/<%= edition.id %>/edit">Edit</a>
-                    <form action="/editions/<%= edition.id %>/delete" method="POST">
-                        <button type="submit">Delete</button>
-                    </form>
-                </li>
-            <% }) %>
-        </ul>
+        <div class="page-header">
+            <%- include('../../partials/headers/page-header', {heading: 'Editions'}) %>
+            <%- include('../../partials/actions/create-action', {action: '/editions/new', label: 'New'}) %>
+        </div>
+        <main class="content">
+            <ul class="list-card-container">
+                <% editions.forEach(edition => { %>
+                    <li class="list-card">
+                        <%- include('../../partials/headers/card-header', {heading: edition.name}) %>
+                        
+                        <div class="tool-bar">
+                            <%- include('../../partials/actions/edit-action', { action:`/editions/${edition.id}/edit` }) %>
+                            <%- include('../../partials/actions/delete-action', { action:`/editions/${edition.id}/delete`, label: "Delete" }) %>
+                        </div>
+                    </li>
+                <% }) %>
+            </ul>
+        </main>
 
         <%- include('../../partials/footer') %>
     </body>

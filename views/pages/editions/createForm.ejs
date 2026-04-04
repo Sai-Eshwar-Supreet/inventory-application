@@ -3,13 +3,16 @@
     <%- include('../../partials/head') %>
     <body>
         <%- include('../../partials/header') %>
-        <%- include('../../partials/errors') %>
-        <h2>Create Edition</h2>
-        <form action="/editions/new" method="POST">
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name" required>
-            <button type="submit">Create Edition</button>
-        </form>
+        <div class="page-header">
+            <%- include('../../partials/headers/page-header', {heading: 'Create Edition'}) %>
+        </div>
+        <main class="content">
+            <%- include('../../partials/errors') %>
+            <form class="form" action="/editions/new" method="POST">
+                <%- include('../../partials/inputs/text-input', {name: 'name', label: 'Name:', required: true}) %>
+                <%- include('../../partials/buttons/submit-button', {label: 'Create Edition'}) %>
+            </form>
+        </main>
 
         <%- include('../../partials/footer') %>
     </body>
