@@ -3,13 +3,33 @@
     <%- include('../../partials/head') %>
     <body>
         <%- include('../../partials/header') %>
-        <%- include('../../partials/errors') %>
-        <h2>Create Publisher</h2>
-        <form action="/publishers/new" method="POST">
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name" required>
-            <button type="submit">Create Publisher</button>
-        </form>
+
+        <div class="page-header">
+            <%- include('../../partials/headers/page-header', 
+                {
+                    heading: 'Create Publisher'
+                }
+            )%>
+        </div>
+
+        <main class="content">
+            <%- include('../../partials/errors') %>
+            <form class="form" action="/publishers/new" method="POST">
+                <%- include('../../partials/inputs/text-input', 
+                    {
+                        name: 'name', 
+                        label: 'Name:', 
+                        required: true
+                    }
+                )%>
+
+                <%- include('../../partials/buttons/submit-button', 
+                    {
+                        label: 'Create Publisher'
+                    }
+                )%>
+            </form>
+        </main>
 
         <%- include('../../partials/footer') %>
     </body>

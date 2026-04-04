@@ -4,19 +4,47 @@
     <body>
         <%- include('../../partials/header') %>
 
-        <h2>Publishers</h2>
-        <a href="/publishers/new">Add New Publisher</a>
-        <ul>
-            <% publishers.forEach(publisher => { %>
-                <li>
-                    <span><%= publisher.name %></span>
-                    <a href="/publishers/<%= publisher.id %>/edit">Edit</a>
-                    <form action="/publishers/<%= publisher.id %>/delete" method="POST">
-                        <button type="submit">Delete</button>
-                    </form>
-                </li>
-            <% }) %>
-        </ul>
+        <div class="page-header">
+            <%- include('../../partials/headers/page-header', 
+                {
+                    heading: 'Publisher'
+                }
+            )%>
+            <%- include('../../partials/actions/create-action', 
+                {
+                    action: '/publishers/new', 
+                    label: 'New'
+                }
+            )%>
+        </div>
+
+        <main class="content">
+            <ul class="list-card-container">
+                <% publishers.forEach(publisher => { %>
+                    <li class="list-card">
+                        <%- include('../../partials/headers/card-header', 
+                            {
+                                heading: publisher.name
+                            }
+                        )%>
+
+                        <div class="tool-bar">
+                            <%- include('../../partials/actions/edit-action', 
+                                { 
+                                    action:`/publishers/${publisher.id}/edit` 
+                                }
+                            )%>
+                            <%- include('../../partials/actions/delete-action', 
+                                { 
+                                    action:`/publishers/${publisher.id}/delete`, 
+                                    label: "Delete" 
+                                }
+                            )%>
+                        </div>
+                    </li>
+                <% }) %>
+            </ul>
+        </main>
 
         <%- include('../../partials/footer') %>
     </body>
