@@ -31,7 +31,7 @@ async function getGameDetails(req, res) {
 
     const {id} = matchedData(req);
 
-    const game = await gameDB.getGameById(id);
+    const game = await gameDB.getGameByIdForDetails(id);
     const releases = await releasesDB.getAllReleasesByGame(id);
 
     res.render('pages/games/details', {game, releases});
@@ -66,7 +66,7 @@ async function getUpdateForm(req, res) {
         return res.sendStatus(400);
     }
     const {id} = matchedData(req);
-    const game = await gameDB.getGameById(id);
+    const game = await gameDB.getGameByIdForForm(id);
     const genres = await genreDB.getAllGenres();
     const developers = await developerDB.getAllDevelopers();
     res.render('pages/games/updateForm', {game, genres, developers});
