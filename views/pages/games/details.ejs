@@ -4,43 +4,31 @@
     <body>
         <%- include('../../partials/header') %>
 
-        <h2><%= game.name %></h2>
-        <p><%= game.description %></p>
-        <div>
-            <h3>Genres</h3>
-            <ul>
-                <% game.genres.forEach(genre => { %>
-                    <li><%= genre.name %></li>
-                <% }) %>
-            </ul>
+        <div class="page-header">
+            <%- include('../../partials/headers/page-header', {heading: game.name}) %>
+            <div class="tool-bar">
+                <%- include('../../partials/actions/edit-action', { action:`/games/${game.id}/edit` }) %>
+                <%- include('../../partials/actions/delete-action', { action:`/games/${game.id}/delete`, label: "Delete" }) %>
+            </div>
         </div>
-        <div>
-            <h3>Developers</h3>
-            <ul>
-                <% game.developers.forEach(developer => { %>
-                    <li><%= developer.name %></li>
-                <% }) %>
-            </ul>
-        </div>
-
-        <div>
-            <h3>Releases</h3>
-            <ul>
-                <% releases?.forEach(release => {%>
-                    <li>
-                        <img src="<%= release.coverImagePath %>" alt="<% release.name %> cover image">
-                        <p><%= release.platform %></p>
-                        <p><%= release.edition %></p>
-                        <p><%= release.region %></p>
-                        <a href="/games/releases/<%= release.id %>/details">View</a>
-                    </li>
-                <%})%>
-            </ul>
-        </div>
-        <a href="/games/<%= game.id %>/edit">Edit</a>
-        <form action="/games/<%= game.id %>/delete" method="POST">
-            <button type="submit">Delete</button>
-        </form>
+        <main class="content">
+            <div class="detail-group">
+                <%- include('../../partials/headers/section-header', {heading: 'Overview'}) %>
+                <p class="description"><%= game.description %></p>
+            </div>
+            <div class="detail-group">
+                <%- include('../../partials/headers/section-header', {heading: 'Genres'}) %>
+                <%- include('../../partials/others/chip-list', {values: game.genres}) %>
+            </div>
+            <div class="detail-group">
+                <%- include('../../partials/headers/section-header', {heading: 'Developers'}) %>
+                <%- include('../../partials/others/chip-list', {values: game.developers}) %>
+            </div>
+            <div class="detail-group">
+                <%- include('../../partials/headers/section-header', {heading: 'Available Releases'}) %>
+                <%- include('./release-card', {releases}) %>
+            </div>
+        </main>
 
         <%- include('../../partials/footer') %>
     </body>

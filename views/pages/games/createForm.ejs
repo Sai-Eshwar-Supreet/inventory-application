@@ -3,33 +3,19 @@
     <%- include('../../partials/head') %>
     <body>
         <%- include('../../partials/header') %>
-        <%- include('../../partials/errors') %>
-        <h2>Create Game</h2>
-        <form action="/games/new" method="POST">
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name" required>
-            <label for="description">Description:</label>
-            <input type="text" id="description" name="description" required>
-            <div>
-                <h3>Genres</h3>
-                <% genres.forEach(genre => { %>
-                    <label>
-                        <input type="checkbox" name="genres" value="<%= genre.id %>">
-                        <%= genre.name %>
-                    </label>
-                <% }) %>
-            </div>
-            <div>
-                <h3>Developers</h3>
-                <% developers.forEach(developer => { %>
-                    <label>
-                        <input type="checkbox" name="developers" value="<%= developer.id %>">
-                        <%= developer.name %>
-                    </label>
-                <% }) %>
-            </div>
-            <button type="submit">Create Game</button>
-        </form>
+        <div class="page-header">
+            <%- include('../../partials/headers/page-header', {heading: 'Create Game'}) %>
+        </div>
+        <main class="content">
+            <%- include('../../partials/errors') %>
+            <form class="form" action="/games/new" method="POST">
+                <%- include('../../partials/inputs/text-input', {name: 'name', label: 'Name:', required: true}) %>
+                <%- include('../../partials/inputs/textarea-input', {name: 'description', label: 'Description:', required: true}) %>
+                <%- include('../../partials/inputs/checkbox-group-input', {legend: 'Genres:', name: 'genres', values: genres, required: true}) %>
+                <%- include('../../partials/inputs/checkbox-group-input', {legend: 'Developers:', name: 'developers', values: developers, required: true}) %>
+                <%- include('../../partials/buttons/submit-button', {label: 'Create Game'}) %>            
+            </form>
+        </main>
 
         <%- include('../../partials/footer') %>
     </body>

@@ -2,7 +2,13 @@
     <legend><%= legend %></legend>
     <div class="input-group">
         <% values.forEach(value => { %>
-            <%- include('./checkbox-input', {label: value.name, value: value.id, id: `${legend}${value.name}_${value.id}`.split(' ').join('')}) %>
+            <%- include('./checkbox-input', 
+            {
+                label: value.name, 
+                value: value.id, 
+                id: `${legend}${value.name}_${value.id}`.split(' ').join(''),
+                checked: locals.checkedItems?.some(c => c === value.id)
+            }) %>
         <% }) %>
     </div>
 </fieldset>

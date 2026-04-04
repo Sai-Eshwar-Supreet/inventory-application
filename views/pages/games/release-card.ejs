@@ -1,0 +1,12 @@
+<ul class="grid-card-container">
+    <% releases?.forEach(release => {%>
+        <li class="grid-card">
+            <div class="image-container">
+                <img src="<%= release.coverImagePath %>" alt="<% release.name %> cover image">
+            </div>
+            
+            <%- include('../../partials/others/chip-list', {values: [release.platform, release.edition, release.region]}) %>
+            <%- include('../../partials/actions/get-action', {action: `/games/releases/${release.id}/details`, label: 'View'}) %>
+        </li>
+    <%})%>
+</ul>

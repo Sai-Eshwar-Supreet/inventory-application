@@ -3,20 +3,25 @@
     <%- include('../../partials/head') %>
     <body>
         <%- include('../../partials/header') %>
-
-        <h2>Games</h2>
-        <a href="/games/new">Add New Game</a>
-        <ul>
-            <% games.forEach(game => { %>
-                <li>
-                    <a href="/games/<%= game.id %>/details"><%= game.name %></a>
-                    <a href="/games/<%= game.id %>/edit">Edit</a>
-                    <form action="/games/<%= game.id %>/delete" method="POST">
-                        <button type="submit">Delete</button>
-                    </form>
-                </li>
-            <% }) %>
-        </ul>
+        <div class="page-header">
+            <%- include('../../partials/headers/page-header', {heading: 'Games'}) %>
+            <%- include('../../partials/actions/create-action', {action: '/games/new', label: 'New'}) %>
+        </div>
+        <main class="content">
+            <ul class="list-card-container">
+                <% games.forEach(game => { %>
+                    <li class="list-card">
+                        <%- include('../../partials/headers/card-header', {heading: game.name}) %>
+                        
+                        <div class="tool-bar">
+                            <%- include('../../partials/actions/get-action', { action:`/games/${game.id}/details`, label: "View" }) %>
+                            <%- include('../../partials/actions/edit-action', { action:`/games/${game.id}/edit` }) %>
+                            <%- include('../../partials/actions/delete-action', { action:`/games/${game.id}/delete`, label: "Delete" }) %>
+                        </div>
+                    </li>
+                <% }) %>
+            </ul>
+        </main>
 
         <%- include('../../partials/footer') %>
     </body>
