@@ -28,7 +28,7 @@ async function getAllReleases(req, res){
     res.render('pages/releases/index', {releases});
 }
 
-async function getReleaseDetails(req, res){
+async function getReleaseDetails(req, res, next){
     const errors = validationResult(req);
 
     if(!errors.isEmpty()){
@@ -37,6 +37,10 @@ async function getReleaseDetails(req, res){
 
     const {id} = matchedData(req);
     const release = await releaseDB.getReleaseByIdForDisplay(id);
+    if(!release){
+        return next(new Error(`Cannot find a release with id: ${id}`));
+    }
+
     res.render('pages/releases/details', {release});
 }
 
@@ -50,7 +54,7 @@ async function getCreateForm(req, res){
     res.render('pages/releases/createForm', {games, editions, platforms, publishers, regions});
 }
 
-async function postCreateForm(req, res) {
+async function postCreateForm(req, res, next) {
     const errors = validationResult(req);
 
     if(!errors.isEmpty()){
@@ -64,9 +68,14 @@ async function postCreateForm(req, res) {
 
     const {game, edition, platform, publisher, region, releaseDate, price, coverImagePath} = matchedData(req);
 
-    const {rows} = await releaseDB.addRelease(game, edition, platform, publisher, region, releaseDate, price, coverImagePath);
-    const {id} = rows[0];
-    res.redirect(`/games/releases/${id}/details`);
+    try{
+        const {rows} = await releaseDB.addRelease(game, edition, platform, publisher, region, releaseDate, price, coverImagePath);
+        const {id} = rows[0];
+        res.redirect(`/games/releases/${id}/details`);
+    }
+    catch{
+        return next(new Error('Invalid data: Cannot create release.'));
+    }
 }
 
 async function getUpdateForm(req, res){
@@ -86,7 +95,7 @@ async function getUpdateForm(req, res){
 
     res.render('pages/releases/updateForm', {games, editions, platforms, publishers, regions, release});
 }
-async function postUpdateForm(req, res){
+async function postUpdateForm(req, res, next){
     const errors = validationResult(req);
     
     if(!errors.isEmpty()){
@@ -105,9 +114,14 @@ async function postUpdateForm(req, res){
     const {id} = matchedData(req, {locations: ['params']});
     const {game, edition, platform, publisher, region, releaseDate, price, coverImagePath} = matchedData(req, {locations: 'body'});
 
-    await releaseDB.updateRelease(id, game, edition, platform, publisher, region, releaseDate, price, coverImagePath);
+    try{
+        await releaseDB.updateRelease(id, game, edition, platform, publisher, region, releaseDate, price, coverImagePath);
+        res.redirect(`/games/releases/${id}/details`);
+    }
+    catch{
+        return next(new Error('Invalid data: Cannot update release.'));
+    }
 
-    res.redirect(`/games/releases/${id}/details`);
 }
 
 async function postDeleteRelease(req, res){

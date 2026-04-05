@@ -13,6 +13,10 @@ image{
     display: block;
 }
 
+svg{
+    min-height: 24px;
+}
+
 /* ==================== TOKENS ==================== */
 :root{
     /* Font sizes */
@@ -102,6 +106,41 @@ body{
     margin: 0 auto;
 }
 
+.content.error-content{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    gap: var(--space-medium);
+
+    margin: auto;
+
+    background-color: var(--color-neutral-100);
+    border: 1px solid var(--color-neutral-150);
+    border-radius: var(--radius-small);
+    box-shadow: var(--shadow-card);
+
+    width: min(400px, 100%);
+
+    color: var(--color-danger);
+    fill: var(--color-danger);
+
+    text-align: center;
+}
+
+.error-content .page-header{
+    gap: var(--space-tiny);
+    margin: 0;
+    padding: var(--space-small);
+
+    border-bottom: 1px solid var(--color-danger);
+}
+
+.content.error-content + .footer{
+    margin: 0;
+} 
+
 .split-content{
     display: flex;
     flex-direction: row;
@@ -185,24 +224,67 @@ body{
     position: relative;
 }
 
+#hamburger{
+    padding: var(--space-small) var(--space-medium);
+    border-radius: var(--radius-small);
+    border: 1px solid var(--color-neutral-900);
+}
+
+#hamburger:hover{
+    background-color: var(--color-neutral-900);
+    fill: var(--color-neutral-100);
+}
+
+#hamburger svg{
+    vertical-align: middle;
+}
+
 #nav-menu {
   display: none;
   position: absolute;
   right: 0;
 
   margin-top: var(--space-small);
-  padding: var(--space-small);
   border: 1px solid black;
   border-radius: var(--radius-small);
 
   background-color: white;
 
   z-index: 2;
+  overflow: hidden;
 }
 
 #nav-menu ul{
     padding: 0;
     list-style: none;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+}
+
+#nav-menu li{
+    padding: var(--space-tiny) var(--space-medium);
+    background-color: var(--color-neutral-100);
+
+    transition: background-color 0.15s ease;
+}
+#nav-menu li:hover{
+    background-color: var(--color-accent);
+}
+
+#nav-menu li:hover a{
+    color: var(--color-neutral-100);
+}
+
+#nav-menu a{
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
+    color: var(--color-neutral-900);
+
+    transition: color 0.15s ease;
 }
 
 #nav-menu.active {
@@ -473,17 +555,16 @@ fieldset .input-group{
 
 .image-container{
     width: 100%;
-    object-fit: cover;
-    object-position: top;
     
     position: relative;
-
+    
     border-radius: var(--radius-small);
-
+    
     overflow: hidden;
 }
 .grid-card img{
     width: 100%;
+    height:200px;
     object-fit: cover;
     object-position: top;
 }
@@ -546,4 +627,32 @@ fieldset .input-group{
 
     object-fit: cover;
     object-position: top;
+}
+
+
+/* =================== ERRORS ==================== */
+
+.error-container{
+    border: 1px solid var(--color-danger);
+    border-radius: var(--radius-small);
+    background-color: var(--color-neutral-100);
+    color: var(--color-danger);
+    margin-bottom: var(--space-small);
+    padding: var(--space-medium);
+    display: flex;
+    flex-direction: column;
+}
+
+.error-container ul{
+    margin: auto;
+}
+
+.error-container .section-heading{
+    text-align: center;
+    margin-bottom: var(--space-small);
+}
+
+.error-message{
+    display: flex;
+    justify-content: center;
 }

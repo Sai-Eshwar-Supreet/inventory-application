@@ -3,7 +3,16 @@
     <%- include('partials/head') %>
     <body>
         <%- include('partials/header') %>
-
+        <main>
+            <aside>
+                <h2>Filter</h2>
+            </aside>
+            <section>
+                <h2>Releases</h2>
+                
+                <%- include('./partials/cards/release-card', {releases}) %>
+            </section>
+        </main>
         <%- include('partials/footer') %>
     </body>
 </html>
