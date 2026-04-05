@@ -1,3 +1,7 @@
+:root{
+    scrollbar-gutter: stable;
+}
+
 *, *::after, *::before{
     box-sizing: border-box;
 }
@@ -551,6 +555,12 @@ fieldset .input-group{
     gap: var(--space-small);
 }
 
+.grid-card-container .action:last-child{
+    margin-top: auto;
+    align-self: stretch;
+    box-shadow: var(--shadow-light);
+}
+
 .grid-card{
     display: flex;
     flex-direction: column;
@@ -608,22 +618,24 @@ fieldset .input-group{
     white-space: pre-line;
 }
 
-.list{
+.chip-list{
     display: flex;
     flex-wrap: wrap;
-
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
+    list-style-type: none;
+    gap: var(--space-small);
+}
 
+.list{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
     list-style-type: none;
 }
 
 .list-item{
     padding: 0 var(--space-small);
-}
-
-.list-item + .list-item{
-    border-left: 1px solid var(--color-neutral-800);
 }
 
 .chip{

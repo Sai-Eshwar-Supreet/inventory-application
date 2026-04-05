@@ -7,7 +7,7 @@
     "start": "node app.cjs",
     "dev": "node --watch --env-file-if-exists=.env app.cjs",
     "debug": "node --watch --inspect --env-file-if-exists=.env app.cjs",
-    "db:init": "node ./db/populatedb.cjs"
+    "db:init": "node ./db/populateDB/populateDB.cjs"
   },
   "repository": {
     "type": "git",
