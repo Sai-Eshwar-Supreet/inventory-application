@@ -184,6 +184,7 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-wrap: wrap;
     margin: var(--space-medium) 0;
     padding: 0 var(--space-medium);
 
@@ -351,6 +352,16 @@ body{
     --action-color: var(--color-neutral-100); 
     --action-text-color: var(--color-danger); 
 }
+
+.search-bar{
+    display: flex;
+    justify-content: center;
+
+    align-items: center;
+
+    gap: var(--space-small);
+}
+
 
 
 /* ==================== BUTTONS ==================== */

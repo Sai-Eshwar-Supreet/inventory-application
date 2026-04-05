@@ -3,15 +3,20 @@
     <%- include('partials/head') %>
     <body>
         <%- include('partials/header') %>
-        <main>
-            <aside>
-                <h2>Filter</h2>
-            </aside>
-            <section>
-                <h2>Releases</h2>
-                
-                <%- include('./partials/cards/release-card', {releases}) %>
-            </section>
+
+        <div class="page-header">
+            <%- include('./partials/headers/page-header', 
+                {
+                    heading: 'Home'
+                }
+            )%>
+        </div>
+        <form class="search-bar" action="/search" method="POST">
+            <input type="search" value="<%= locals.searchTerm %>" name="searchTerm" />
+            <%- include('./partials/buttons/submit-button', {label: 'Search'}) %>
+        </form>
+        <main class="content">
+            <%- include('./partials/cards/release-card', {releases}) %>
         </main>
         <%- include('partials/footer') %>
     </body>

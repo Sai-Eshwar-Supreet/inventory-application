@@ -1,6 +1,6 @@
 const pool = require('../pool.cjs');
 
-const queries = require('../buildQueries.cjs')(__dirname, 'create', 'read', 'update', 'delete', 'readForDetailsById', 'readForFormById', 'readByGame');
+const queries = require('../buildQueries.cjs')(__dirname, 'create', 'read', 'update', 'delete', 'readForDetailsById', 'readForFormById', 'readByGame', 'readWithSearch');
 
 async function addRelease(gameId, editionId, platformId, publisherId, regionId, releaseDate, price, coverImagePath) {
     return await pool.query(queries.create, [gameId, editionId, platformId, publisherId, regionId, releaseDate, price, coverImagePath]);
@@ -8,6 +8,13 @@ async function addRelease(gameId, editionId, platformId, publisherId, regionId, 
 
 async function getAllReleases() {
     const {rows} = await pool.query(queries.read);
+    return rows;
+}
+async function getAllReleasesWithSearch(searchTerm) {
+    if(!searchTerm){
+        return await getAllReleases();
+    }
+    const {rows} = await pool.query(queries.readWithSearch, [searchTerm]);
     return rows;
 }
 async function getAllReleasesByGame(gameId){
@@ -40,5 +47,6 @@ module.exports = {
     getReleaseByIdForForms,
     getReleaseByIdForDisplay,
     deleteRelease,
-    updateRelease
+    updateRelease,
+    getAllReleasesWithSearch
 };
