@@ -18,6 +18,7 @@ async function main(){
     const client  = new Client(
         {
             connectionString: connectionString,
+            ssl: {rejectUnauthorized: false}
         }
     );
 
