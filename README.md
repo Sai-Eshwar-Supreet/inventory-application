@@ -4,6 +4,10 @@ A robust web application for comprehensive game inventory management, developed 
 
 This application enables users to catalog games with detailed metadata including genres and developers, manage multiple releases per game across various editions, platforms, publishers, and regions, and perform efficient searches. It implements full CRUD operations, robust server-side validation, and scalable data persistence.
 
+## Live Demo
+
+[View Live Demo](https://inventory-application-9ul1.onrender.com)
+
 ## Features
 
 - **Game Management**: Create, read, update, and delete games with associated genres and developers
